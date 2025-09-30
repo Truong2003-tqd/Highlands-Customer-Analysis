@@ -18,12 +18,13 @@ This project aims to build a Power BI dashboard using the Coffee Brand Customer 
 6. What factors drive customers’ purchasing decisions across different need states and times of day?
 
 # **Dataset Background**
-The dataset comprises nine tables covering survey respondents’ information, brand image, brand health, and respondents’ need states when purchasing products. A detailed data dictionary can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Data%20Dictionary)
+The dataset comprises nine tables covering survey respondents’ information, brand image, brand health, and respondents’ need states when purchasing products. A detailed data dictionary can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Data%20Dictionary).
 
 However, the data contained significant integrity issues, including a high rate of missing values, inconsistent labeling, and grammatical errors. To address these problems, Python was used as the primary tool for data detection, cleaning, and preprocessing. The dataset was fully cleaned using pandas and NumPy within Jupyter Notebook.
 
 A detailed report of the data errors and the preprocessing steps can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Preprocessing%20Notebook).
 
-# 
+
+
 
 
