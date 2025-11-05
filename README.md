@@ -1,6 +1,5 @@
 ﻿# **Highlands Coffee Survey Analysis: Brand Positioning and Customer Segmentation**
 - Author: Nguyen Tran Xuan Truong
-- Start Date: 20/09/2025
 - Tool Used: Python and Power BI
 - Project Status: Work in progress
 
@@ -23,6 +22,7 @@ The dataset comprises nine tables covering survey respondents’ information, br
 However, the data contained significant integrity issues, including a high rate of missing values, inconsistent labeling, and grammatical errors. To address these problems, Python was used as the primary tool for data detection, cleaning, and preprocessing. The dataset was fully cleaned using pandas and NumPy within Jupyter Notebook.
 
 A detailed report of the data errors and the preprocessing steps can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Preprocessing%20Notebook).
+
 
 
 
