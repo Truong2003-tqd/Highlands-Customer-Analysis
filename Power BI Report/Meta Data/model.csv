@@ -1,0 +1,5 @@
+ID,Name,Description,StorageLocation,DefaultMode,DefaultDataView,Culture,Collation,ModifiedTime,StructureModifiedTime,Version,DataAccessOptions,DefaultMeasureID,DefaultPowerBIDataSourceVersion,ForceUniqueNames,DiscourageImplicitMeasures,DataSourceVariablesOverrideBehavior,DataSourceDefaultMaxConnections,SourceQueryCulture,MAttributes,DiscourageCompositeModels,AutomaticAggregationOptions,DisableAutoExists,MaxParallelismPerRefresh,MaxParallelismPerQuery,VersionMarker
+1,"Model","","",0,0,"en-US","",2025-10-02 09:35:08.440,2025-11-05 09:36:01.766,32,"{
+  ""legacyRedirects"": true,
+  ""returnErrorValuesAsNull"": true
+}",,2,False,False,0,10,"en-US","",False,"",-1,-1,0,""

@@ -1,0 +1,1259 @@
+ID,TableID,Name,Description,DataType,Expression,FormatString,IsHidden,State,ModifiedTime,StructureModifiedTime,KPIID,IsSimpleMeasure,ErrorMessage,DisplayFolder,DetailRowsDefinitionID,DataCategory,FormatStringDefinitionID,LineageTag,SourceLineageTag
+2624,2572,"Store Count (Highlands Coffee Default)","",6,"
+VAR _BrandToShow = 
+    --If no brand is selected, this returns ""Highlands"" by default
+    COALESCE( 
+        SELECTEDVALUE( competitor_data_for_filter[brand] ), 
+        ""Highlands Coffee"" 
+    )
+
+VAR _RecentStoreCount =
+    -- No year or multiple years selected: force latest visible year
+    CALCULATE (
+        SUM(competitor_data_for_filter[store_count]),
+        -- Ensure brand logic works even if multiple brands are selected
+        REMOVEFILTERS(competitor_data_for_filter[brand]),
+        KEEPFILTERS(competitor_data_for_filter[brand] = _BrandToShow)
+    )
+
+RETURN
+_RecentStoreCount
+
+","0",False,1,2025-10-24 07:32:36.156,2025-10-04 17:20:37.616,,False,"","",,"",,"98fb478d-164e-4443-8c6e-a02fd19b27e1",""
+2630,2572,"Store Growth Rate","",8,"
+VAR _BrandToShow = 
+    --If no brand is selected, this returns ""Highlands"" by default
+    COALESCE( 
+        SELECTEDVALUE( competitor_data_for_filter[brand] ), 
+        ""Highlands Coffee"" 
+    )
+
+VAR _RecentStoreCount =
+    CALCULATE (
+        SUM(competitor_data_for_filter[store_count]),
+        REMOVEFILTERS(competitor_data_for_filter[brand]),
+        KEEPFILTERS(competitor_data_for_filter[brand] = _BrandToShow)
+    )
+
+VAR _BaselineYear = 2017
+
+VAR _BaselineStoreCount = 
+    CALCULATE(
+        SUM(competitor_data_for_filter[store_count]),
+        REMOVEFILTERS(competitor_data_for_filter[brand]),
+        KEEPFILTERS(competitor_data_for_filter[brand] = _BrandToShow),
+        REMOVEFILTERS('year'),
+        KEEPFILTERS('year'[year] = _BaselineYear)
+    )
+    
+RETURN
+DIVIDE(
+    _RecentStoreCount - _BaselineStoreCount, 
+    _BaselineStoreCount
+)","0%;-0%;0%",False,1,2025-10-24 07:33:36.073,2025-10-04 19:01:25.606,,False,"","",,"",,"1ea9c6fa-7ec4-4edb-9950-b4cfc4dd037c",""
+2632,2572,"Coverage (Text)","",2,"
+VAR _BrandToShow = 
+    --If no brand is selected, this returns ""Highlands"" by default
+    COALESCE( 
+        SELECTEDVALUE( competitor_data_for_filter[brand] ), 
+        ""Highlands Coffee"" 
+    )
+
+VAR _CityCount =
+    -- No year or multiple years selected: force latest visible year in the dataset
+    CALCULATE (
+        DISTINCTCOUNT(competitor_data_for_filter[city]),
+        -- Ensure brand logic works even if multiple brands are selected
+        REMOVEFILTERS(competitor_data_for_filter[brand]),
+        KEEPFILTERS(competitor_data_for_filter[brand] = _BrandToShow)
+    )
+    
+RETURN
+_CityCount & "" cities""
+
+","",False,1,2025-10-24 07:33:50.236,2025-10-04 19:21:16.446,,False,"","",,"",,"027654f3-367b-4dd1-b880-7dac369169c8",""
+2634,2572,"Coverage (Number)","",6,"
+VAR _BrandToShow = 
+    --If no brand is selected, this returns ""Highlands"" by default
+    COALESCE( 
+        SELECTEDVALUE( competitor_data_for_filter[brand] ), 
+        ""Highlands Coffee"" 
+    )
+
+VAR _CityCount =
+    -- No year or multiple years selected: force latest visible year in the dataset
+    CALCULATE (
+        DISTINCTCOUNT(competitor_data_for_filter[city]),
+        -- Ensure brand logic works even if multiple brands are selected
+        REMOVEFILTERS(competitor_data_for_filter[brand]),
+        KEEPFILTERS(competitor_data_for_filter[brand] = _BrandToShow)
+    )
+    
+RETURN
+_CityCount 
+
+","0",False,1,2025-10-24 07:34:11.536,2025-10-04 19:28:19.926,,False,"","",,"",,"624e8903-ae43-48e0-bd0c-cf6dd979a35e",""
+2636,2572,"3. Count Attribute","",6,"
+CALCULATE(
+    COUNT( brand_image[attribute] )
+)","#,0",False,1,2025-10-20 08:19:55.720,2025-10-05 09:47:53.616,,False,"","",,"",,"f40d273f-94ce-4eca-93e0-73bbf8fdfb1e",""
+2890,2572,"7. Count Multi-purpose","",8,"
+VAR _CountValue =
+CALCULATE(
+    COUNT( brand_image[attribute_group] ),
+    brand_image[attribute_group] = ""Multi-purpose""
+    )
+
+VAR _CountTotalRespondent = 
+    CALCULATE(
+        DISTINCTCOUNT( brand_image[answer_index] )
+    )
+
+RETURN
+DIVIDE(
+    _CountValue,
+    _CountTotalRespondent
+)","0.00",False,1,2025-10-20 07:42:56.226,2025-10-05 10:42:36.526,,False,"","",,"",,"5c89d782-aaff-4349-9d8e-39a4abdbf328",""
+2892,2572,"5. Count Product Quality","",8,"
+VAR _CountProductQuality =
+    CALCULATE(
+        COUNT( brand_image[attribute_group] ),
+        brand_image[attribute_group] = ""Product Quality""
+    )
+
+VAR _CountTotalRespondent = 
+    CALCULATE(
+        DISTINCTCOUNT( brand_image[answer_index] )
+    )
+
+RETURN
+DIVIDE(
+    _CountProductQuality,
+    _CountTotalRespondent
+)","0.00",False,1,2025-10-20 07:42:38.933,2025-10-05 12:48:21.616,,False,"","",,"",,"3590cca8-c47c-494f-b242-7ea9e332411e",""
+2897,2572,"4. Count Popularity & Service","",8,"
+VAR _CountBrandTrust =
+    CALCULATE(
+        COUNT( brand_image[attribute_group] ),
+        brand_image[attribute_group] = ""Popularity & Service""
+    )
+
+VAR _CountTotalRespondent = 
+    CALCULATE(
+        DISTINCTCOUNT( brand_image[answer_index] )
+    )
+
+RETURN
+DIVIDE(
+    _CountBrandTrust,
+    _CountTotalRespondent
+)","0.00",False,1,2025-10-20 07:42:33.630,2025-10-05 13:46:12.156,,False,"","",,"",,"19efaa97-9a70-4dbd-9c77-077193052176",""
+2900,2572,"6. Count Environment","",8,"
+VAR _CountComfortEnvironment =
+    CALCULATE(
+        COUNT( brand_image[attribute_group] ),
+        brand_image[attribute_group] = ""Environment""
+    )
+
+VAR _CountTotalRespondent = 
+    CALCULATE(
+        DISTINCTCOUNT( brand_image[answer_index] )
+    )
+
+RETURN
+DIVIDE(
+    _CountComfortEnvironment,
+    _CountTotalRespondent
+)","#,0.00",False,1,2025-10-20 07:42:50.716,2025-10-05 13:47:00.286,,False,"","",,"",,"df5f488c-af9a-4736-86e1-909e1f50af31",""
+23737,2572,"1. Select X-axis Attribute","",8,"
+SWITCH(
+    SELECTEDVALUE( '1. competitive_landscape'[Attribute] ),
+    ""Popularity"", [4. Count Popularity & Service],
+    ""Environment"", [6. Count Environment],
+    BLANK()
+)","",False,1,2025-11-05 04:49:00.996,2025-10-20 07:21:24.363,,False,"","",,"",,"ea91da09-b0cb-46db-92d8-e322d75863a7",""
+23908,2572,"2. Select Y-axis Attribute","",8,"
+SWITCH(
+    SELECTEDVALUE( '1. competitive_landscape'[Attribute] ),
+    ""Quality"", [5. Count Product Quality],
+    ""Multi-purpose"", [7. Count Multi-purpose],
+    BLANK()
+)","",False,1,2025-11-05 04:49:12.723,2025-10-20 07:23:21.596,,False,"","",,"",,"0c785715-166b-408a-b5ce-49f048368e9b",""
+9014,6938,"2. Awareness Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _CurrentStage = 1
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+
+RETURN
+_Awareness","#,0",False,1,2025-11-03 04:33:28.810,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"33d138a6-4851-4068-93bf-a594c3c28ba7",""
+9016,6938,"3. Trial Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE('2. Funnel Bridge'[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = 2
+VAR _StageCount = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+RETURN
+_StageCount
+","#,0",False,1,2025-11-03 04:34:23.170,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"70a3a04b-4bed-42fb-ba9e-0c4c2c6a184c",""
+9017,6938,"4. P3M Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE('2. Funnel Bridge'[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = 3
+VAR _StageCount = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+RETURN
+_StageCount","#,0",False,1,2025-11-03 04:34:41.473,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"fb39fde1-a268-4a30-b2e6-54cf3d2bed3f",""
+9018,6938,"5. P1M Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE('2. Funnel Bridge'[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = 4
+VAR _StageCount = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+RETURN
+_StageCount","#,0",False,1,2025-11-03 04:34:50.106,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"22090ef7-2975-4707-961c-4d40edf5b652",""
+9019,6938,"6. Weekly Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE('2. Funnel Bridge'[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = 5
+VAR _StageCount = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+RETURN
+_StageCount
+","#,0",False,1,2025-11-03 04:34:57.723,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"bfb3c8af-852d-4819-ac92-d72bc66e7dbf",""
+9020,6938,"7. Daily Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE('2. Funnel Bridge'[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = 6
+VAR _StageCount = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    brand_health[StageKey] >= _CurrentStage
+)
+RETURN
+_StageCount
+","#,0",False,1,2025-11-03 04:35:03.910,2025-10-14 05:14:32.463,,False,"","Funnel Value",,"",,"244d956d-ddcf-42c0-8a99-a53695670ad5",""
+9143,6938,"2.1 Awareness %","",6,"1","0.00%;-0.00%;0.00%",False,1,2025-10-15 03:46:40.833,2025-10-14 16:34:14.510,,False,"","Funnel Value",,"",,"718224ac-33fe-442d-961b-3440f61bbc93",""
+9145,6938,"3.1 Trial %","",8,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] )
+)
+
+VAR _Current = 
+   CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= 2
+    )
+RETURN
+    DIVIDE( _Current, _Awareness)
+
+
+
+","0.00%;-0.00%;0.00%",False,1,2025-10-29 09:47:27.713,2025-10-14 16:35:43.250,,False,"","Funnel Value",,"",,"231536bb-6d6c-47c3-8807-e7690b0ace02",""
+9149,6938,"4.1 P3M %","",8,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] )
+)
+
+VAR _Current = 
+   CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= 3
+    )
+RETURN
+    DIVIDE( _Current, _Awareness)","0.00%;-0.00%;0.00%",False,1,2025-10-29 09:47:27.713,2025-10-14 16:53:17.166,,False,"","Funnel Value",,"",,"e3cc1bf0-ca43-4ca2-8d16-84a71a67a22a",""
+9152,6938,"5.1 P1M %","",8,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] )
+)
+
+VAR _Current = 
+   CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= 4
+    )
+RETURN
+    DIVIDE( _Current, _Awareness)
+","0.00%;-0.00%;0.00%",False,1,2025-10-29 09:47:27.713,2025-10-14 16:54:19.200,,False,"","Funnel Value",,"",,"c84d98a6-1e0d-4413-9032-0ae5505a964e",""
+9155,6938,"6.1. Weekly %","",8,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] )
+)
+
+VAR _Current = 
+   CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= 5
+    )
+RETURN
+    DIVIDE( _Current, _Awareness)
+","0.00%;-0.00%;0.00%",False,1,2025-10-29 09:47:27.713,2025-10-14 16:57:36.053,,False,"","Funnel Value",,"",,"fd95a36f-5b55-4ce1-801d-ec1a9096ea63",""
+9158,6938,"7.1. Daily %","",8,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] )
+)
+
+VAR _Current = 
+   CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= 6
+    )
+RETURN
+    DIVIDE( _Current, _Awareness)
+","0.00%;-0.00%;0.00%",False,1,2025-10-29 09:47:27.713,2025-10-14 16:58:14.616,,False,"","Funnel Value",,"",,"89027ea1-8126-4ecd-9518-ebd4b24f0a75",""
+9161,6938,"8.2. Upper Bound","",6,"1","0",False,1,2025-10-15 03:40:24.543,2025-10-14 17:04:41.096,,False,"","Funnel Value",,"",,"2a8bd7a7-e858-4812-b707-796917074372",""
+9163,6938,"8.1. Lower Bound","",6,"0","0",False,1,2025-10-15 03:40:17.753,2025-10-14 17:05:57.333,,False,"","Funnel Value",,"",,"445ccff6-9357-4935-90a0-f6bbe8d400d8",""
+13288,6938,"1. Current Stage Count","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = SELECTEDVALUE(brand_health[StageKey])
+
+VAR _Current = 
+CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= _CurrentStage
+    )
+RETURN
+_Current","0",False,1,2025-10-29 09:47:27.713,2025-10-16 17:38:48.550,,False,"","Funnel Value",,"",,"912725ed-389b-4449-a2ba-41be2617dc9b",""
+13627,6938,"1. Current Stage Change","",2,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _CurrentStage = SELECTEDVALUE(brand_health[StageKey])
+
+VAR _PreviousStage = 
+SWITCH(
+    SELECTEDVALUE(brand_health[StageKey]),
+    1, 1,
+    2, 1,
+    3, 2,
+    4, 3,
+    5, 4,
+    6, 5,
+    BLANK()
+)
+
+VAR _Current = 
+CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= _CurrentStage
+    )
+
+VAR _Previous = 
+CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= _PreviousStage
+    )
+VAR _Change =
+ROUND(DIVIDE(_Previous - _Current,_Previous)*100,2)
+
+RETURN
+IF( _Change = 0, ""--"", ""▼"" & _Change & ""%"")
+","",False,1,2025-10-29 09:47:27.713,2025-10-17 06:21:38.903,,False,"","Funnel Value",,"",,"509cadb4-802e-4194-94ec-669eee1f3075",""
+18705,6938,"Color Count Change","",2,"
+VAR _Decrease = ""#B2292E""   // Red
+VAR _Increase = ""#29B269""   // Green
+VAR _Value = [1. Current Stage Change]
+
+VAR _MaxValue =
+    CALCULATE(
+        MAXX(ALLSELECTED('2. Funnel Bridge'), [1. Current Stage Change])
+    )
+VAR _MinValue =
+    CALCULATE(
+        MINX(ALLSELECTED('2. Funnel Bridge'), [1. Current Stage Change])
+    )
+
+RETURN
+SWITCH(
+    TRUE(),
+    _Value = _MaxValue, _Increase,   // Green if this row equals max
+    _Value = _MinValue, _Decrease,   // Red if equals min
+    ""#A0A0A0""                        // Neutral for all others
+)
+","",False,1,2025-10-24 05:55:06.140,2025-10-17 06:12:20.736,,False,"","Funnel Value",,"",,"7cd60cdb-447e-4f2a-93e7-bd0bff9346ed",""
+28598,6938,"1. Awareness","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+
+VAR _CurrentStage = SELECTEDVALUE( brand_health[Stage])
+
+VAR _PreviousStage = 
+SWITCH(
+    SELECTEDVALUE(brand_health[Stage]),
+    1, 1,
+    2, 1,
+    3, 2,
+    4, 3,
+    5, 4,
+    6, 5,
+    BLANK()
+)
+
+VAR _Awareness = 
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS( brand_health[brand] = _Brand),
+    REMOVEFILTERS( brand_health[StageKey] )
+)
+
+VAR _OtherPhase = 
+IF(
+    _CurrentStage = 1, _Awareness,
+    CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        KEEPFILTERS( brand_health[brand] = _Brand),
+        REMOVEFILTERS( brand_health[StageKey] ),
+        brand_health[Stage] >= _CurrentStage
+    )
+)
+
+
+RETURN
+_OtherPhase","0",False,1,2025-10-29 09:47:27.713,2025-10-23 17:05:29.736,,False,"","",,"",,"08a1d51a-3b02-4664-b1e6-a1bea03fac9f",""
+9283,9231,"1. Count Yes Attribute","",6,"
+VAR _Brand = COALESCE(SELECTEDVALUE(brand[brand]), ""Highlands Coffee"")
+VAR _CurrentStage = SELECTEDVALUE(brand_health[StageKey])
+RETURN
+CALCULATE(
+    COUNT(brand_image[attribute]),
+    KEEPFILTERS(brand_image[brand_image] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] ),
+    brand_health[StageKey] >= _CurrentStage
+)
+","#,0",False,1,2025-10-29 09:47:27.713,2025-10-16 19:39:10.273,,False,"","",,"",,"8554ba9e-f7b0-407e-af1e-c109cbcbf5cc",""
+9290,9231,"2.1. Trial Yes - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Count = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        '2. Funnel Bridge'[Stage] = ""Trial"",
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand
+    )
+)
+
+RETURN
+_Count","0",False,1,2025-10-16 10:53:59.193,2025-10-15 14:17:27.843,,False,"","",,"",,"00ede9a4-9672-43be-bd2e-299123df142f",""
+9292,9231,"2.2 Trial No - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        brand_image[brand_image] = _Brand
+    )
+VAR _Trial = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[trial] = ""Yes""
+    )
+)
+
+VAR _No = 
+_Awareness - _Trial
+
+RETURN
+_No","0",False,1,2025-10-16 09:59:46.883,2025-10-15 14:25:16.643,,False,"","",,"",,"43bef702-6445-4a25-b655-4bb8a5c1fdfe",""
+9294,9231,"3.1. P3M Yes - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Count = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[p3m] = ""Yes""
+    )
+)
+
+RETURN
+_Count","0",False,1,2025-10-15 15:27:07.786,2025-10-15 14:29:00.846,,False,"","",,"",,"507c2718-62f8-41da-bf14-3d0e4376f832",""
+9295,9231,"3.2. P3M No - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Awareness = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        brand_image[brand_image] = _Brand
+    )
+VAR _P3M = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[p3m] = ""Yes""
+    )
+)
+
+VAR _No = 
+_Awareness - _P3M
+
+RETURN
+_No","0",False,1,2025-10-16 10:01:20.416,2025-10-15 14:30:33.476,,False,"","",,"",,"ad83839c-8cf0-47ba-a837-a54ba346e891",""
+9296,9231,"4.1. P1M Yes - Count Attribute","",6,"VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Count = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[p1m] = ""Yes""
+    )
+)
+
+RETURN
+_Count","0",False,1,2025-10-15 14:35:38.643,2025-10-15 14:35:38.600,,False,"","",,"",,"56825943-5ee9-4409-a794-b7f8b0e08e93",""
+9297,9231,"4.2. P1M No - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+    
+VAR _Awareness = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        brand_image[brand_image] = _Brand
+    )
+VAR _P1M = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[p1m] = ""Yes""
+    )
+)
+
+VAR _No = 
+_Awareness - _P1M
+
+RETURN
+_No","0",False,1,2025-10-16 10:01:57.396,2025-10-15 14:36:09.676,,False,"","",,"",,"f3de8956-35da-44af-bbf9-88e33f2f747c",""
+9298,9231,"5.1. Weekly Yes - Count Attribute","",6,"VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Count = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[weekly] = ""Yes""
+    )
+)
+
+RETURN
+_Count","0",False,1,2025-10-15 14:36:53.123,2025-10-15 14:36:53.060,,False,"","",,"",,"be355251-89ac-4940-baba-87bfb1767119",""
+9299,9231,"5.2. Weekly No - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        brand_image[brand_image] = _Brand
+    )
+VAR _Weekly = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[weekly] = ""Yes""
+    )
+)
+
+VAR _No = 
+_Awareness - _Weekly
+
+RETURN
+_No","0",False,1,2025-10-16 10:02:20.583,2025-10-15 14:37:39.340,,False,"","",,"",,"f7c844dd-0338-4894-9d9b-c24adc32f474",""
+9300,9231,"6.1 Daily Yes - Count Attribute","",6,"VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+VAR _Count = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[daily] = ""Yes""
+    )
+)
+
+RETURN
+_Count","0",False,1,2025-10-15 14:38:56.150,2025-10-15 14:38:56.103,,False,"","",,"",,"d5c143fe-2773-4f9e-bfe8-691d3f95a898",""
+9301,9231,"6.2. Daily No - Count Attribute","",6,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _Awareness = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        brand_image[brand_image] = _Brand
+    )
+VAR _Daily = 
+    CALCULATE( 
+        COUNT( brand_image[attribute] ), 
+        FILTER(
+            brand_health,
+            brand_health[brand] = _Brand &&
+            brand_health[daily] = ""Yes""
+    )
+)
+
+VAR _No = 
+_Awareness - _Daily
+
+RETURN
+_No","0",False,1,2025-10-16 10:02:44.416,2025-10-15 14:39:50.726,,False,"","",,"",,"0c23356c-3c85-457e-bc2e-1fa4a99aad8a",""
+10289,9231,"Place Holder","",6,"-750","0",False,1,2025-10-16 18:39:26.716,2025-10-15 15:10:55.440,,False,"","",,"",,"3a9d5233-f321-47d4-b10a-8e55b2ac4fce",""
+10291,9231,"0. Awareness - Attribute Rank","",2,"""--""","",False,1,2025-10-15 16:36:15.466,2025-10-15 15:16:50.143,,False,"","",,"",,"018e7ba8-1e3e-4a99-9ead-6d0ef72fe413",""
+10293,9231,"2.3. Trial - Attribute Rank Change","",2,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _Awareness =
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        brand[brand] = _Brand
+    ),
+    ,
+    DESC,
+    DENSE
+)
+
+VAR _TrialRank =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[trial] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Change = 
+_Awareness - _TrialRank
+
+RETURN
+IF( _Change = 0, ""--"",
+    IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)","",False,1,2025-10-15 16:35:52.796,2025-10-15 15:33:02.690,,False,"","",,"",,"cc2563b6-0996-4319-8e00-ab15ecd6929b",""
+10295,9231,"3.3. P3M - Attribute Rank Change","",2,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _TrialRank =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[trial] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _P3MRank =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[p3m] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Change = 
+_TrialRank - _P3MRank
+
+RETURN
+IF( _Change = 0, ""--"",
+    IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)","",False,1,2025-10-15 16:35:31.873,2025-10-15 16:07:14.176,,False,"","",,"",,"7eec57fd-d57a-49fd-aed7-056226808dd2",""
+10297,9231,"4.3. P1M - Attribute Rank Change","",2,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _P3MRank =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[p3m] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _P1M =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[p1m] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Change = 
+_P3MRank - _P1M
+
+RETURN
+IF( _Change = 0, ""--"",
+    IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)","",False,1,2025-10-15 16:35:05.190,2025-10-15 16:10:30.493,,False,"","",,"",,"dbf133c3-983d-4174-af83-149975d4acba",""
+10301,9231,"5.3. Weekly - Attribute Rank Change","",2,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _P1M =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[p1m] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Weekly =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[weekly] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Change = 
+_P1M - _Weekly 
+
+RETURN
+IF( _Change = 0, ""--"", 
+    IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)
+","",False,1,2025-10-15 16:34:36.753,2025-10-15 16:13:25.746,,False,"","",,"",,"21ab9224-3bee-49b1-9486-91b37aaf5bbc",""
+10303,9231,"6.3. Daily - Attribute Rank Change","",2,"
+VAR _Brand = 
+    COALESCE( SELECTEDVALUE( brand[brand] ), ""Highlands Coffee"" )
+
+VAR _Weekly =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[weekly] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+VAR _Daily =
+    RANKX(
+        ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+        CALCULATE(
+            COUNT( brand_image[attribute] ),
+            brand[brand] = _Brand,
+            brand_health[daily] = ""Yes""
+        ),
+        ,
+        DESC,
+        DENSE
+    )
+
+
+VAR _Change = 
+IF ( _Daily = 0, _Weekly - _Weekly, _Weekly - _Daily ) 
+
+RETURN
+IF(
+    _Change = 0,
+    ""--"",
+    IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)
+","",False,1,2025-10-15 16:33:21.243,2025-10-15 16:14:28.566,,False,"","",,"",,"11905f01-e1c0-4c35-97b8-e69d0ffffef9",""
+11543,9231,"Funnel Count (By Selected Stage)","",6,"
+VAR _Brand = COALESCE(SELECTEDVALUE(brand[brand]), ""Highlands Coffee"")
+VAR _Stage = SELECTEDVALUE('2. Funnel Bridge'[Stage])  -- slicer should come from a clean Stage dimension
+RETURN
+CALCULATE(
+    DISTINCTCOUNT(brand_health[id]),
+    KEEPFILTERS(brand[brand] = _Brand),
+    KEEPFILTERS('2. Funnel Bridge'[Stage] = _Stage)
+)
+","0",False,1,2025-10-16 16:07:57.080,2025-10-16 15:25:56.953,,False,"","",,"",,"5ec72741-bc23-4fa9-9e2b-9a1e6eaa2165",""
+11657,9231,"Awareness Count (Locked)","",6,"
+VAR _Brand = COALESCE(SELECTEDVALUE(brand[brand]), ""Highlands Coffee"")
+RETURN
+CALCULATE(
+    DISTINCTCOUNT('2. Funnel Bridge'[id]),
+    KEEPFILTERS( brand[brand] = _Brand ),
+    REMOVEFILTERS('2. Funnel Bridge'[Stage]),
+    '2. Funnel Bridge'[Stage] = ""Awareness""
+)
+","0",False,1,2025-10-16 16:05:59.940,2025-10-16 15:30:34.736,,False,"","",,"",,"a7fc3669-e6ae-4227-afb8-59026323d743",""
+12219,9231,"Funnel Count - brand_image (fixed)","",6,"
+VAR _Brand = COALESCE(SELECTEDVALUE(brand[brand]), ""Highlands Coffee"")
+VAR _Stage = SELECTEDVALUE('2. Funnel Bridge'[Stage])
+RETURN
+CALCULATE(
+    DISTINCTCOUNT(brand_image[id]),
+    KEEPFILTERS(brand[brand] = _Brand),
+    KEEPFILTERS('2. Funnel Bridge'[Stage] = _Stage)
+)
+","0",False,1,2025-10-16 16:32:44.166,2025-10-16 16:08:11.476,,False,"","",,"",,"d38aef49-1148-40ad-958e-396490745449",""
+12782,9231,"1. Count No Attribute","",6,"
+VAR _Brand = COALESCE(SELECTEDVALUE(brand[brand]), ""Highlands Coffee"")
+
+VAR _CurrentStage = SELECTEDVALUE(brand_health[StageKey])
+
+
+
+VAR _Current =
+CALCULATE(
+    COUNT(brand_image[attribute]),
+    KEEPFILTERS(brand_image[brand_image] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] ),
+    brand_health[StageKey] >= _CurrentStage
+)
+
+VAR _Awareness = 
+CALCULATE(
+    COUNT(brand_image[attribute]),
+    KEEPFILTERS(brand_image[brand_image] = _Brand),
+    REMOVEFILTERS( brand_health[Stage] ),
+    brand_health[StageKey] >= 1
+)
+
+RETURN
+_Awareness - _Current
+","#,0",False,1,2025-10-29 09:47:27.716,2025-10-16 19:38:21.316,,False,"","",,"",,"1cd54823-a695-4e30-af29-3749c33d2830",""
+15482,9231,"1. Current Stage Rank Change","",2,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = SELECTEDVALUE(brand_health[StageKey])
+VAR _PreviousStage = 
+SWITCH(
+    SELECTEDVALUE(brand_health[StageKey]),
+    1, 1,
+    2, 1,
+    3, 2,
+    4, 3,
+    5, 4,
+    6, 5,
+    BLANK()
+)
+VAR _CurrentRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= _CurrentStage
+    ),
+    ,
+    DESC,
+    SKIP
+)
+
+VAR _PreviousRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        REMOVEFILTERS( brand_health[Stage] ),
+        brand_health[StageKey] >= _PreviousStage
+    ),
+    ,
+    DESC,
+    SKIP
+)
+
+VAR _Change =
+_PreviousRank - _CurrentRank
+
+RETURN
+IF( _Change = 0, ""--"",
+  IF( _Change < 0, ""▼"" & ABS(_Change), ""▲"" & ABS(_Change) )
+)","",False,1,2025-10-29 09:47:27.716,2025-10-16 18:40:02.693,,False,"","",,"",,"b18b8ea9-1be2-45f9-a907-febc704b2c3c",""
+16215,9231,"1. Current Rank","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = SELECTEDVALUE('2. Funnel Bridge'[Stage])
+VAR _PreviousStage = 
+SWITCH(
+    SELECTEDVALUE('2. Funnel Bridge'[Stage]),
+    ""Awareness"", ""Awareness"",
+    ""Trial"", ""Awareness"",
+    ""P3M"", ""Trial"",
+    ""P1M"", ""P3M"",
+    ""Weekly"", ""P1M"",
+    ""Daily"", ""Weekly"",
+    BLANK()
+)
+VAR _CurrentRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        KEEPFILTERS('2. Funnel Bridge'[Stage] = _CurrentStage)
+    ),
+    ,
+    DESC,
+    Skip
+)
+
+VAR _PreviousRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        REMOVEFILTERS('2. Funnel Bridge'[Stage]),
+        '2. Funnel Bridge'[Stage] = _PreviousStage
+    ),
+    ,
+    DESC,
+    Skip
+)
+
+VAR _Change =
+_PreviousRank - _CurrentRank
+
+RETURN
+_CurrentRank","0",False,1,2025-10-16 19:27:35.553,2025-10-16 19:08:44.743,,False,"","",,"",,"1304f1d7-013c-4733-a9c4-a493dad65119",""
+16329,9231,"1. Previous Rank","",6,"
+VAR _Brand =
+    COALESCE( SELECTEDVALUE(brand[brand]), ""Highlands Coffee"" )
+VAR _CurrentStage = SELECTEDVALUE('2. Funnel Bridge'[Stage])
+VAR _PreviousStage = 
+SWITCH(
+    SELECTEDVALUE('2. Funnel Bridge'[Stage]),
+    ""Awareness"", ""Awareness"",
+    ""Trial"", ""Awareness"",
+    ""P3M"", ""Trial"",
+    ""P1M"", ""P3M"",
+    ""Weekly"", ""P1M"",
+    ""Daily"", ""Weekly"",
+    BLANK()
+)
+VAR _CurrentRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        KEEPFILTERS('2. Funnel Bridge'[Stage] = _CurrentStage)
+    ),
+    ,
+    DESC,
+    Skip
+)
+
+VAR _PreviousRank = 
+RANKX(
+    ALLSELECTED( brand_image[attribute] ), -- compare across all attributes in the current context
+    CALCULATE(
+        COUNT( brand_image[attribute] ),
+        KEEPFILTERS(brand_image[brand_image] = _Brand),
+        REMOVEFILTERS('2. Funnel Bridge'[Stage]),
+        '2. Funnel Bridge'[Stage] = _PreviousStage
+    ),
+    ,
+    DESC,
+    Skip
+)
+
+VAR _Change =
+_PreviousRank - _CurrentRank
+
+RETURN
+_PreviousRank","0",False,1,2025-10-16 19:28:01.673,2025-10-16 19:09:30.416,,False,"","",,"",,"f41b879f-c1f6-445f-a77b-2c08b6ce1d87",""
+18479,9231,"Rank Change Color","",2,"
+VAR _Decrease = ""#B2292E""
+VAR _Increase = ""#29B269""
+
+RETURN
+IF(
+    CONTAINSSTRING([1. Current Stage Rank Change], ""▼""),
+    _Decrease,
+    _Increase
+)
+--""▼""","",False,1,2025-10-24 06:17:57.556,2025-10-17 06:07:37.846,,False,"","",,"",,"e4c50db1-e689-48df-bb6e-56fdb6080c4a",""
+42155,41630,"2. Churned Rate","",8,"
+VAR _SegmentCustomer = [1. Total Segmented Customer]
+
+VAR _CurrentSegment = 
+    CALCULATE(
+            DISTINCTCOUNT( brand_health[id] )
+            --brand_health[segment_name] = ""Churned Customer""
+        )
+
+VAR _Rate = 
+    DIVIDE( _CurrentSegment, _SegmentCustomer)
+
+RETURN
+_Rate
+","0.00%;-0.00%;0.00%",False,1,2025-10-31 17:41:59.776,2025-10-31 17:21:03.563,,False,"","",,"",,"8a0c2299-856b-4ff9-828a-e984e31a84c8",""
+42890,41630,"1. Total Segmented Customer","",6,"
+	CALCULATE(
+        DISTINCTCOUNT( brand_health[id] ),
+        ISBLANK( brand_health[segment_name] ) = FALSE
+    )","0",False,1,2025-10-31 17:08:40.013,2025-10-31 09:03:10.910,,False,"","",,"",,"a7f009e8-b3a0-43fa-ad96-97bdb8cbfcf1",""
+43909,41630,"3. Churned Rate - Last Year","",8,"
+VAR _PreviousYear = SELECTEDVALUE( 'year'[year] ) - 1
+
+VAR _SegmentCustomer = 
+    CALCULATE(
+        [1. Total Segmented Customer],
+        REMOVEFILTERS( 'year'[year] ),
+        brand_health[year] = _PreviousYear
+    )
+
+VAR _CurrentSegment = 
+    CALCULATE(
+            DISTINCTCOUNT( brand_health[id] ),
+            --brand_health[segment_name] = ""Churned Customer"",
+            REMOVEFILTERS( 'year'[year] ),
+            brand_health[year] = _PreviousYear
+        )
+
+VAR _Rate = 
+    DIVIDE( _CurrentSegment, _SegmentCustomer)
+
+RETURN
+_Rate
+","0.00%;-0.00%;0.00%",False,1,2025-11-01 09:01:57.480,2025-10-31 09:32:04.510,,False,"","",,"",,"71243fd0-6fe3-4077-82b0-ed724ea2fb5b",""
+46167,41630,"4. Year Dif Churn","",8,"
+[2. Churned Rate] - [3. Churned Rate - Last Year]","",False,1,2025-11-01 09:02:05.053,2025-10-31 17:21:47.406,,False,"","",,"",46347,"3f7b3326-33d9-466f-8580-279bf0dd0387",""
+46970,41630,"5. Background Formatting for Churn","",2,"
+VAR _Red = ""#B2292E""   // Red
+VAR _Green = ""#29B269""   // Green
+RETURN
+IF( [4. Year Dif Churn] > 0, _Red, _Green)","",False,1,2025-11-01 09:02:18.543,2025-10-31 17:55:49.993,,False,"","",,"",,"3b61bd66-d557-4e96-805b-8e2c5191762e",""
+47198,41630,"6. Background Formatting for Loyalist","",2,"
+VAR _Red = ""#B2292E""   // Red
+VAR _Green = ""#29B269""   // Green
+RETURN
+IF( [4. Year Dif Churn] > 0, _Green, _Red)","",False,1,2025-11-01 09:02:26.943,2025-10-31 17:57:59.720,,False,"","",,"",,"cebc7bb5-6d5d-4675-b8d6-9c17f34f00c1",""
+47542,41630,"7. Churned Rate Color (Scope Aware)","",2,"
+VAR _cur = [2. Churned Rate]
+VAR _gender = ISINSCOPE ( survey_respondents_info[gender] )
+VAR _mpi_detail = ISINSCOPE ( survey_respondents_info[mpi_detail] )
+VAR _age = ISINSCOPE ( survey_respondents_info[age_sub_group] )
+VAR _occupation = ISINSCOPE ( survey_respondents_info[occupation_group] )
+VAR _mpi = ISINSCOPE ( survey_respondents_info[mpi] )
+
+
+VAR _max =
+    SWITCH ( TRUE(),
+        _gender,
+            MAXX ( ALLSELECTED ( survey_respondents_info[gender] ), [2. Churned Rate] ),
+        _age,
+            MAXX ( ALLSELECTED ( survey_respondents_info[age_sub_group] ), [2. Churned Rate] ),
+        _mpi_detail,
+            MAXX ( ALLSELECTED ( survey_respondents_info[mpi_detail] ), [2. Churned Rate] ),
+        _mpi,
+            MAXX ( ALLSELECTED ( survey_respondents_info[mpi] ), [2. Churned Rate] ),
+        _occupation,
+            MAXX ( ALLSELECTED ( survey_respondents_info[occupation_group] ), [2. Churned Rate] ),
+        BLANK()
+    )
+
+VAR _min =
+    SWITCH ( TRUE(),
+        _gender,
+            MINX ( ALLSELECTED ( survey_respondents_info[gender] ), [2. Churned Rate] ),
+        _age,
+            MINX ( ALLSELECTED ( survey_respondents_info[age_sub_group] ), [2. Churned Rate] ),
+        _mpi_detail,
+            MINX ( ALLSELECTED ( survey_respondents_info[mpi_detail] ), [2. Churned Rate] ),
+        _mpi,
+            MINX ( ALLSELECTED ( survey_respondents_info[mpi] ), [2. Churned Rate] ),
+        _occupation,
+            MINX ( ALLSELECTED ( survey_respondents_info[occupation_group] ), [2. Churned Rate] ),
+        BLANK()
+    )
+
+VAR _Red = ""#B2292E""   // Red
+VAR _Green = ""#29B269""   // Green
+VAR _DarkWhite60 = ""#696969""
+VAR _Darkwhite20 = ""#d1d1d1""
+RETURN
+SWITCH (
+    TRUE(),
+    _cur = _max, _Red,
+    _cur = _min, _DarkWhite60,
+    _Darkwhite20
+)
+
+
+","",False,1,2025-11-01 09:02:35.236,2025-10-31 18:50:33.653,,False,"","",,"",,"7018efc4-73e4-4531-9677-ba0931b1b101",""
+49137,41630,"8. Churned Rate Label (Scope Aware)","",2,"
+VAR _cur = [2. Churned Rate]
+VAR _gender      = ISINSCOPE ( survey_respondents_info[gender] )
+VAR _mpi_detail  = ISINSCOPE ( survey_respondents_info[mpi_detail] )
+VAR _age         = ISINSCOPE ( survey_respondents_info[age_sub_group] )
+VAR _occupation  = ISINSCOPE ( survey_respondents_info[occupation_group] )
+VAR _mpi         = ISINSCOPE ( survey_respondents_info[mpi] )
+
+VAR _max =
+    SWITCH ( TRUE(),
+        _gender,      MAXX ( ALLSELECTED ( survey_respondents_info[gender] ), [2. Churned Rate] ),
+        _age,         MAXX ( ALLSELECTED ( survey_respondents_info[age_sub_group] ), [2. Churned Rate] ),
+        _mpi_detail,  MAXX ( ALLSELECTED ( survey_respondents_info[mpi_detail] ), [2. Churned Rate] ),
+        _mpi,         MAXX ( ALLSELECTED ( survey_respondents_info[mpi] ), [2. Churned Rate] ),
+        _occupation,  MAXX ( ALLSELECTED ( survey_respondents_info[occupation_group] ), [2. Churned Rate] ),
+        BLANK()
+    )
+
+VAR _min =
+    SWITCH ( TRUE(),
+        _gender,      MINX ( ALLSELECTED ( survey_respondents_info[gender] ), [2. Churned Rate] ),
+        _age,         MINX ( ALLSELECTED ( survey_respondents_info[age_sub_group] ), [2. Churned Rate] ),
+        _mpi_detail,  MINX ( ALLSELECTED ( survey_respondents_info[mpi_detail] ), [2. Churned Rate] ),
+        _mpi,         MINX ( ALLSELECTED ( survey_respondents_info[mpi] ), [2. Churned Rate] ),
+        _occupation,  MINX ( ALLSELECTED ( survey_respondents_info[occupation_group] ), [2. Churned Rate] ),
+        BLANK()
+    )
+
+RETURN
+SWITCH (
+    TRUE(),
+    _cur = _max,
+        SWITCH ( TRUE(),
+            _gender,      SELECTEDVALUE ( survey_respondents_info[gender] ),
+            _age,         SELECTEDVALUE ( survey_respondents_info[age_sub_group] ),
+            _mpi_detail,  SELECTEDVALUE ( survey_respondents_info[mpi_detail] ),
+            _mpi,         SELECTEDVALUE ( survey_respondents_info[mpi] ),
+            _occupation,  SELECTEDVALUE ( survey_respondents_info[occupation_group] )
+        ),
+    _cur = _min,
+        SWITCH ( TRUE(),
+            _gender,      SELECTEDVALUE ( survey_respondents_info[gender] ),
+            _age,         SELECTEDVALUE ( survey_respondents_info[age_sub_group] ),
+            _mpi_detail,  SELECTEDVALUE ( survey_respondents_info[mpi_detail] ),
+            _mpi,         SELECTEDVALUE ( survey_respondents_info[mpi] ),
+            _occupation,  SELECTEDVALUE ( survey_respondents_info[occupation_group] )
+        ),
+    BLANK()
+)
+","",False,1,2025-11-01 09:02:41.603,2025-11-01 08:57:19.043,,False,"","",,"",,"3f64a6ee-d606-4ab9-96ca-bdb2397fde6e",""
+55712,55112,"1. Select X-axis Attribute.","",8,"
+SWITCH(
+    SELECTEDVALUE( '1.1. X-xis'[X-axis] ),
+    ""Popularity"", [4. Count Popularity & Service],
+    ""Environment"", [6. Count Environment],
+    BLANK()
+)","",False,1,2025-11-05 05:22:29.556,2025-11-05 05:21:53.963,,False,"","",,"",,"3ace6c2b-c194-4a1d-a1d7-e09c8c58b4de",""
+55827,55493,"1. Select Y-axis Attribute","",8,"
+SWITCH(
+    SELECTEDVALUE( '1.2. Y-axis'[Y-axis] ),
+    ""Quality"", [5. Count Product Quality],
+    ""Multi-purpose"", [7. Count Multi-purpose],
+    BLANK()
+)","",False,1,2025-11-05 05:24:21.306,2025-11-05 05:22:42.206,,False,"","",,"",,"5419f4a5-074c-4979-ba3a-e89d5566407c",""
