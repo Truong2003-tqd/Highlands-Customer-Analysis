@@ -24,7 +24,20 @@ However, the data contained significant integrity issues, including a high rate 
 A detailed report of the data errors and the preprocessing steps can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Preprocessing%20Notebook).
 
 
+# Image of Dashboard
 
+## Overview Dashboard
 
+![Dashboard overview highlighting key KPIs](Image/Screenshot%202025-12-06%20165713.png)
 
+## Competitive Landscape
+![Customer journey funnel visuals](Image/Screenshot%202025-12-06%20165727.png)
 
+## Conversion Analysis
+![Brand perception heatmap](Image/Screenshot%202025-12-06%20165735.png)
+
+## RFM Segment Analysis
+![Need state segmentation view](Image/Screenshot%202025-12-06%20165742.png)
+
+## Need Satisfaction Analysis
+![Demographic spend breakdown](Image/Screenshot%202025-12-06%20165750.png)
