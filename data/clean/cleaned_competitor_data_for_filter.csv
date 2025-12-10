@@ -1,21 +1,4 @@
 ﻿no_,brand,city,year,store_count
-6,Cộng Cà Phê,Hải Phòng,2017,1
-9,Cộng Cà Phê,Lào Cai,2017,1
-10,Cộng Cà Phê,Nha Trang,2017,1
-11,Cộng Cà Phê,Quảng Nam,2017,1
-12,Cộng Cà Phê,Quảng Ninh,2017,1
-13,Cộng Cà Phê,Seoul,2017,1
-26,Highlands Coffee,Hưng Yên,2017,1
-28,Highlands Coffee,Nam Định,2017,1
-32,Highlands Coffee,Quảng Nam,2017,1
-34,Highlands Coffee,Thái Bình,2017,1
-41,Phúc Long,Đà Nẵng,2017,1
-50,Starbucks,Hải Phòng,2017,1
-58,The Coffee House,Đồng Nai,2017,1
-68,The Coffee House,Vũng Tàu,2017,1
-71,Trung Nguyên,Đà Nẵng,2017,1
-72,Trung Nguyên,Đắk Lắk,2017,1
-77,Trung Nguyên,Lào Cai,2017,1
 82,Cộng Cà Phê,Gyeonggi,2018,1
 84,Cộng Cà Phê,Hải Phòng,2018,1
 86,Cộng Cà Phê,Lạng Sơn,2018,1
@@ -73,67 +56,6 @@
 228,Trung Nguyên,Đắk Lắk,2019,1
 229,Trung Nguyên,Hà Nam,2019,1
 233,Trung Nguyên,Lào Cai,2019,1
-1,Cộng Cà Phê,Bắc Ninh,2017,0
-2,Cộng Cà Phê,Cần Thơ,2017,0
-3,Cộng Cà Phê,Đà Nẵng,2017,2
-4,Cộng Cà Phê,Gyeonggi,2017,0
-5,Cộng Cà Phê,Hà Nội,2017,26
-7,Cộng Cà Phê,Hồ Chí Minh,2017,8
-8,Cộng Cà Phê,Lạng Sơn,2017,0
-14,Cộng Cà Phê,Thái Nguyên,2017,0
-15,Cộng Cà Phê,Thanh Hóa,2017,0
-16,Cộng Cà Phê,Thừa Thiên Huế,2017,0
-17,Highlands Coffee,Bắc Ninh,2017,2
-18,Highlands Coffee,Bình Định,2017,0
-19,Highlands Coffee,Bình Dương,2017,7
-20,Highlands Coffee,Cần Thơ,2017,4
-21,Highlands Coffee,Đà Nẵng,2017,15
-22,Highlands Coffee,Đồng Nai,2017,9
-23,Highlands Coffee,Hà Nội,2017,57
-24,Highlands Coffee,Hải Phòng,2017,9
-25,Highlands Coffee,Hồ Chí Minh,2017,85
-27,Highlands Coffee,Long An,2017,0
-29,Highlands Coffee,Nghệ An,2017,3
-30,Highlands Coffee,Nha Trang,2017,5
-31,Highlands Coffee,Phú Thọ,2017,0
-33,Highlands Coffee,Quảng Ninh,2017,3
-35,Highlands Coffee,Thanh Hóa,2017,3
-36,Highlands Coffee,Thừa Thiên Huế,2017,2
-37,Highlands Coffee,Tiền Giang,2017,0
-38,Highlands Coffee,Vũng Tàu,2017,5
-39,Phúc Long,Bình Dương,2017,2
-40,Phúc Long,Cần Thơ,2017,0
-42,Phúc Long,Đồng Nai,2017,0
-43,Phúc Long,Hà Nội,2017,0
-44,Phúc Long,Hải Phòng,2017,0
-45,Phúc Long,Hồ Chí Minh,2017,25
-46,Phúc Long,Nha Trang,2017,0
-47,Starbucks,Cần Thơ,2017,0
-48,Starbucks,Đà Nẵng,2017,0
-49,Starbucks,Hà Nội,2017,9
-51,Starbucks,Hồ Chí Minh,2017,21
-52,Starbucks,Nha Trang,2017,0
-53,The Coffee House,Bắc Ninh,2017,0
-54,The Coffee House,Bình Dương,2017,0
-55,The Coffee House,Cần Thơ,2017,0
-56,The Coffee House,Đà Nẵng,2017,5
-57,The Coffee House,Đắk Lắk,2017,0
-59,The Coffee House,Hà Nội,2017,11
-60,The Coffee House,Hải Phòng,2017,0
-61,The Coffee House,Hồ Chí Minh,2017,55
-62,The Coffee House,Hưng Yên,2017,0
-63,The Coffee House,Nghệ An,2017,0
-64,The Coffee House,Nha Trang,2017,0
-65,The Coffee House,Thanh Hóa,2017,0
-66,The Coffee House,Thừa Thiên Huế,2017,0
-67,The Coffee House,Tiền Giang,2017,0
-69,Trung Nguyên,Bình Dương,2017,2
-70,Trung Nguyên,Cần Thơ,2017,4
-73,Trung Nguyên,Hà Nam,2017,0
-74,Trung Nguyên,Hà Nội,2017,6
-75,Trung Nguyên,Hải Phòng,2017,0
-76,Trung Nguyên,Hồ Chí Minh,2017,33
-78,Trung Nguyên,Nha Trang,2017,2
 79,Cộng Cà Phê,Bắc Ninh,2018,0
 80,Cộng Cà Phê,Cần Thơ,2018,0
 81,Cộng Cà Phê,Đà Nẵng,2018,2
