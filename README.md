@@ -27,17 +27,22 @@ A detailed report of the data errors and the preprocessing steps can be accessed
 # Image of Dashboard
 
 ## Overview Dashboard
+![Overview Dashboard](Image/Screenshot%202025-12-12%20035156.png)
 
-![Dashboard overview highlighting key KPIs](Image/Screenshot%202025-12-06%20165713.png)
+## Customer Behavior Analysis
+![Customer Behavior Analysis](Image/Screenshot%202025-12-12%20035207.png)
 
 ## Competitive Landscape
-![Customer journey funnel visuals](Image/Screenshot%202025-12-06%20165727.png)
+![Competitive Landscape](Image/Screenshot%202025-12-12%20035215.png)
+
+## Customer Insight Analysis
+![Customer Insight Analysis](Image/Screenshot%202025-12-12%20035234.png)
 
 ## Conversion Analysis
-![Brand perception heatmap](Image/Screenshot%202025-12-06%20165735.png)
+![Conversion Analysis](Image/Screenshot%202025-12-12%20035241.png)
 
-## RFM Segment Analysis
-![Need state segmentation view](Image/Screenshot%202025-12-06%20165742.png)
+## RFM Analysis
+![RFM Analysis](Image/Screenshot%202025-12-12%20035247.png)
 
 ## Need Satisfaction Analysis
-![Demographic spend breakdown](Image/Screenshot%202025-12-06%20165750.png)
+![Need Satisfaction Analysis](Image/Screenshot%202025-12-12%20035302.png)
