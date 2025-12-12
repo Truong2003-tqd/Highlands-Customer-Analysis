@@ -56,7 +56,7 @@ Customer segments shown here are derived from a K-means clustering model. Detail
 
 **Description:** This dashboard evaluates the competitive landscape of major coffee brands, providing a structured view of how key players compare in store scale, growth momentum, brand familiarity, and perceptual positioning. It highlights each brand’s market footprint, awareness levels across consumers, and their relative strengths on critical perception attributes such as popularity, environment, quality, and multi-purpose usage. The page supports strategic benchmarking by revealing where the brand stands versus competitors and identifying opportunities to differentiate or reinforce market position.
 
-![Competitive Landscape](Image/Screenshot%202025-12-12%20035215.png)
+![Competitive Landscape](<Image/Screenshot 2025-12-12 124908.png>)
 
 ## Customer Insight Analysis
 
