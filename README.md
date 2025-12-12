@@ -36,6 +36,8 @@ However, the data contained significant integrity issues, including a high rate 
 
 A detailed report of the data errors and the preprocessing steps can be accessed through the provided [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/tree/11753423d64e7e75a2097c2e93d1f14a4146f266/Preprocessing%20Notebook).
 
+Access this [link](https://github.com/Truong2003-tqd/Highlands-Customer-Analysis/blob/f6c250b49afdbd2dcad024596c2c530407e24cdc/Power%20BI%20Report/Highlands%20Analysis.pbix) to download PBIX report file 
+
 # **Dashboard Description**
 
 ## Overview Dashboard
@@ -83,3 +85,4 @@ RFM segments shown here are derived from a K-means clustering model. Detailed me
 **Description:** This dashboard evaluates customer satisfaction across both RFM segments and behavioral segments. It highlights how satisfaction varies by loyalty level and shows how closely satisfaction aligns with churn risk. It also analyzes satisfaction across primary customer needs such as beverages, socializing and business activities. In addition, it identifies which store attributes customers mention most often beyond their core needs, helping to distinguish must-have expectations from value-enhancing qualities. The purpose is to pinpoint satisfaction gaps, understand what drives positive experiences and guide actions that strengthen customer retention and loyalty.
 
 ![Need Satisfaction Analysis](Image/Screenshot%202025-12-12%20035302.png)
+
