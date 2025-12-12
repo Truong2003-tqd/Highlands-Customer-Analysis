@@ -56,7 +56,7 @@ Customer segments shown here are derived from a K-means clustering model. Detail
 
 **Description:** This dashboard evaluates the competitive landscape of major coffee brands, providing a structured view of how key players compare in store scale, growth momentum, brand familiarity, and perceptual positioning. It highlights each brand’s market footprint, awareness levels across consumers, and their relative strengths on critical perception attributes such as popularity, environment, quality, and multi-purpose usage. The page supports strategic benchmarking by revealing where the brand stands versus competitors and identifying opportunities to differentiate or reinforce market position.
 
-![Competitive Landscape](<Image/Screenshot%2025-12-12%124908.png>)
+![Competitive Landscape](Image/Screenshot%2025-12-12%124908.png)
 
 ## Customer Insight Analysis
 
@@ -68,7 +68,7 @@ Customer segments shown here are derived from a K-means clustering model. Detail
 
 **Description:** This dashboard examines how effectively coffee brands move customers through the conversion funnel and identifies where retention strengthens or weakens. It compares funnel performance across major competitors, highlights which customer groups are most at risk of dropping off at each stage and reveals the brand attributes that keep customers engaged once they progress. The purpose is to pinpoint leakage points, understand what motivates continued engagement and guide targeted actions that improve conversion and long term customer retention.
 
-![Conversion Analysis](<Image/Screenshot%2025-12-12%130839.png>)
+![Conversion Analysis](Image/Screenshot%2025-12-12%130839.png)
 
 ## RFM Analysis
 
