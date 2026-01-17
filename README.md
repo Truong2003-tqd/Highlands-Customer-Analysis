@@ -50,7 +50,7 @@ Customer segments shown here are derived from a K-means clustering model. Detail
 
 **Description:** This page analyzes customer activity patterns, covering peak visiting hours, peak days of the week, and the types of activities customers engage in during different time periods. It also highlights the key factors customers prioritize when choosing a coffee shop, offering a clear understanding of what influences store selection. Together, these insights help identify optimal staffing windows, promotional timing, product positioning opportunities, and experience improvements tailored to customer behaviors and preferences.
 
-![Customer Behavior Analysis](Image/Screenshot%202025-12-12%20035207.png)
+![Customer Behavior Analysis](Image/Screenshot%202026-01-18%20042457.png)
 
 ## Competitive Landscape
 
