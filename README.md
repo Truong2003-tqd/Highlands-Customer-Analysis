@@ -3,10 +3,7 @@
 - Tool Used: Python and Power BI
 - Project Status: Work in progress
     - Dashboard design: Finished
-    - Reporting: Work in progress
-
-# **Table of Contents**
-# **Background and Overview**
+      
 # **Objectives**
 The objective of this analysis is to build a comprehensive, data-driven understanding of customer behavior, brand perception, competitive dynamics and loyalty performance, while evaluating how these patterns have evolved over time. By integrating historical data and comparing market trends against 2025 performance, the analysis identifies shifts in customer needs, changes in brand engagement and emerging opportunities or risks. This holistic view enables Highlands Coffee to pinpoint leakage points across the customer journey, assess competitive positioning, anticipate market movements and make informed decisions that strengthen customer engagement and long-term growth.
 
@@ -85,4 +82,5 @@ RFM segments shown here are derived from a K-means clustering model. Detailed me
 **Description:** This dashboard evaluates customer satisfaction across both RFM segments and behavioral segments. It highlights how satisfaction varies by loyalty level and shows how closely satisfaction aligns with churn risk. It also analyzes satisfaction across primary customer needs such as beverages, socializing and business activities. In addition, it identifies which store attributes customers mention most often beyond their core needs, helping to distinguish must-have expectations from value-enhancing qualities. The purpose is to pinpoint satisfaction gaps, understand what drives positive experiences and guide actions that strengthen customer retention and loyalty.
 
 ![Need Satisfaction Analysis](Image/Screenshot%202025-12-12%20035302.png)
+
 
